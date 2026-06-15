@@ -7,29 +7,34 @@ let escala = 1;
 nao.style.left = "55%";
 nao.style.top = "55%";
 
+const nao = document.getElementById("nao");
+
 function moverBotao() {
-  const largura = window.innerWidth - nao.offsetWidth - 20;
-  const altura = window.innerHeight - nao.offsetHeight - 20;
+    const x = Math.random() * (window.innerWidth - nao.offsetWidth);
+    const y = Math.random() * (window.innerHeight - nao.offsetHeight);
 
-  const x = Math.random() * largura;
-  const y = Math.random() * altura;
-
-  nao.style.left = x + "px";
-  nao.style.top = y + "px";
-
-  escala += 0.1;
-  sim.style.transform = `scale(${escala})`;
+    nao.style.left = x + "px";
+    nao.style.top = y + "px";
 }
 
-// Computador
-nao.addEventListener("mouseenter", moverBotao);
+document.addEventListener("touchmove", (e) => {
 
-// Celular
-nao.addEventListener("touchstart", function(event) {
-  event.preventDefault();
-  moverBotao();
+    const toque = e.touches[0];
+
+    const rect = nao.getBoundingClientRect();
+
+    const centroX = rect.left + rect.width / 2;
+    const centroY = rect.top + rect.height / 2;
+
+    const distancia = Math.sqrt(
+        Math.pow(toque.clientX - centroX, 2) +
+        Math.pow(toque.clientY - centroY, 2)
+    );
+
+    if (distancia < 100) {
+        moverBotao();
+    }
 });
-
 sim.addEventListener("click", function() {
   conteudo.innerHTML = `
     <div class="convite">
