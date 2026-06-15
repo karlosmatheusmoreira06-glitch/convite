@@ -29,21 +29,23 @@ nao.addEventListener("touchstart", function(e) {
 
 // Celular: quando o dedo chega perto
 document.addEventListener("touchmove", function(e) {
+
   const toque = e.touches[0];
+
   const rect = nao.getBoundingClientRect();
 
-  const centroX = rect.left + rect.width / 2;
-  const centroY = rect.top + rect.height / 2;
+  const margem = 150;
 
-  const distancia = Math.sqrt(
-    Math.pow(toque.clientX - centroX, 2) +
-    Math.pow(toque.clientY - centroY, 2)
-  );
-
-  if (distancia < 200) {
+  if (
+    toque.clientX > rect.left - margem &&
+    toque.clientX < rect.right + margem &&
+    toque.clientY > rect.top - margem &&
+    toque.clientY < rect.bottom + margem
+  ) {
     moverBotao();
   }
-});
+
+}, { passive: true });
 
 sim.addEventListener("click", function() {
   conteudo.innerHTML = `
