@@ -7,8 +7,6 @@ let escala = 1;
 nao.style.left = "55%";
 nao.style.top = "55%";
 
-const nao = document.getElementById("nao");
-
 function moverBotao() {
     const x = Math.random() * (window.innerWidth - nao.offsetWidth);
     const y = Math.random() * (window.innerHeight - nao.offsetHeight);
